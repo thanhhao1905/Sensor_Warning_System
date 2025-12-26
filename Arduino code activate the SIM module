@@ -1,0 +1,87 @@
+````cpp
+String SDT = "0888706668";
+
+enum State {
+  WAIT_SIGNAL,
+  CALLING,
+  WAIT_RESET
+};
+
+State state = WAIT_SIGNAL;
+bool modemReady = false;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(8, INPUT);
+
+  Serial.println("Waiting for signal to activate SIM");
+}
+
+void loop() {
+
+  int sig = digitalRead(8);
+
+  switch (state) {
+
+    // ================== WAIT FOR SIGNAL ==================
+    case WAIT_SIGNAL:
+      if (sig == HIGH) {
+        Serial.println("Signal detected - Activating SIM");
+
+        if (!modemReady) {
+          delay(15000);       // Wait for SIM network registration
+          SIMsetup();
+          modemReady = true;
+        }
+
+        state = CALLING;
+      }
+      break;
+
+    // ================== CALLING ==================
+    case CALLING:
+      CallNow();
+      Serial.println("Call completed - Waiting for signal to activate SIM");
+      state = WAIT_RESET;
+      break;
+
+    // ================== WAIT FOR SIGNAL RESET ==================
+    case WAIT_RESET:
+      if (sig == LOW) {
+        state = WAIT_SIGNAL;
+      }
+      break;
+  }
+}
+
+
+// ================== SIM SETUP ==================
+void SIMsetup() {
+  Serial.print("AT\r\n");
+  delay(400);
+
+  Serial.print("ATE0\r\n");
+  delay(400);
+
+  Serial.print("AT+CLIP=1\r\n");
+  delay(400);
+
+  Serial.print("AT&W\r\n");
+  delay(400);
+
+  Serial.print("AT+CSQ\r\n");
+  delay(400);
+}
+
+
+// ================== MAKE CALL ==================
+void CallNow() {
+  Serial.print("ATD");
+  Serial.print(SDT);
+  Serial.println(";");
+
+  delay(10000);  // Call duration
+
+  Serial.println("AT+CHUP");  // Hang up call
+  delay(300);
+}
