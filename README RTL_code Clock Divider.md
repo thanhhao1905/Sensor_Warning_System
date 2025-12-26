@@ -1,4 +1,4 @@
-```verilog
+````verilog
 module clk_divider #(
     parameter   input_clk_freq  = 40_000_000,  // Input clock frequency
     parameter   output_clk_freq = 1_000_000    // Output clock frequency
