@@ -1,4 +1,4 @@
-````verilog
+
 module fire_alarm_system(
     input  wire       clk,
     input  wire       rst_n,
