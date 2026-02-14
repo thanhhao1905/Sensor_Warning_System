@@ -1,4 +1,4 @@
-````verilog
+
 module uart_tx #(
     parameter CLK_FREQ = 40_000_000,
     parameter BAUD_RATE = 9600
