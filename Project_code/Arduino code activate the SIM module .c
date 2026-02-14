@@ -1,4 +1,3 @@
-````cpp
 String SDT = "0888706668";
 
 enum State {
