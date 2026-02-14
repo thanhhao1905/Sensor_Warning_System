@@ -1,4 +1,4 @@
-````verilog
+
 module i2c_writeframe(
     input       clk_1MHz,
     input       rst_n,
