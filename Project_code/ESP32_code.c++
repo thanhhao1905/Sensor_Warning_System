@@ -1,4 +1,3 @@
-````cpp
 #include <SoftwareSerial.h>
 #include <PubSubClient.h>
 #include <WiFi.h>
