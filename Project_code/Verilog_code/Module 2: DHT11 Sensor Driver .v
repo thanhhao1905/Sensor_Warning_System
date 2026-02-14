@@ -1,4 +1,3 @@
-````verilog 
 module dht_11 #(
     parameter CLK_HZ = 40_000_000
 )(
