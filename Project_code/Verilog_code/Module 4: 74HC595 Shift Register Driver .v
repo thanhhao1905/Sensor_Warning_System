@@ -1,4 +1,3 @@
-````verilog
 module shift_74hc595 #(
     parameter WIDTH = 16,
     parameter HALF_CNT = 20
